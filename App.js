@@ -9,8 +9,12 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  TouchableOpacity,
+  NativeModules
 } from 'react-native';
+
+var ImagePicker = NativeModules.ImageCropPicker;
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -33,6 +37,15 @@ export default class App extends Component<Props> {
         <Text style={styles.instructions}>
           {instructions}
         </Text>
+        <TouchableOpacity onPress={()=>{
+          ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+            }).then(image => {
+            console.log(image);
+            });
+          }}><Text>{'launch picker'}</Text></TouchableOpacity>
       </View>
     );
   }
